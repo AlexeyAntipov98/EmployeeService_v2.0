@@ -5,9 +5,9 @@ namespace EmployeeService_v2._0.DataBase.Repository
     public interface IEmployeeRepository
     {
         void CreateEmployee(Employee employee);
-        void Delete(int id);
-        Employee GetEmployeeById(int id);
+        Employee? GetEmployeeById(int id);
+        void DeleteEmployeeById(int id);
         IEnumerable<Employee> GetAllEmployees();
-        void Update(Employee employee);
+        void UpdateEmployee(Employee employee);
     }
 }

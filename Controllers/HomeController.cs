@@ -25,7 +25,6 @@ namespace EmployeeService_v2._0.Controllers
         {
             try
             {
-
                 userRepos.CreateEmployee(empl);
             }
             catch (SqliteException ex)
@@ -35,10 +34,34 @@ namespace EmployeeService_v2._0.Controllers
             return Json(empl.Id, jsonOptions);
         }
         [HttpGet]
-        public IActionResult GetEmployeeById(int id) 
+        public IActionResult GetEmployeeById(int id)
         {
             var empl = userRepos.GetEmployeeById(id);
             return Json(empl, jsonOptions);
+        }
+        [HttpPost]
+        public IActionResult UpdateEmployee(Employee empl)
+        {
+            userRepos.UpdateEmployee(empl);
+            return Json(empl, jsonOptions);
+        }
+        [HttpPost]
+        public IActionResult AddEmployeeDocument(EmployeeDocument emplDoc)
+        {
+            return Json("a");
+        }
+        [HttpPost]
+        public IActionResult DeleteEmployeeById(int id)
+        {
+            try
+            {
+                userRepos.DeleteEmployeeById(id);
+            }
+            catch (SqliteException ex)
+            {
+                return StatusCode(ex.ErrorCode, ex.Message);
+            }
+            return Content($"Employee with id {id} is deleted");
         }
     }
 }

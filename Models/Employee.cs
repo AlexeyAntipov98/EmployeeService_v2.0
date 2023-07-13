@@ -6,7 +6,23 @@
         public string Name { get; set; } = "";
         public string Surname { get; set; } = "";
         public string Phone { get; set; } = "";
-        public int PassportID { get; set; } = -1;
-        public int CompanyID { get; set; } = -1;
+        public static bool operator ==(Employee? a, Employee? b)
+        {
+            if (a is not null && b is not null)
+            {
+                if (a.Id == b.Id
+                    && a.Name == b.Name
+                    && a.Surname == b.Surname
+                    && a.Phone == b.Phone)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+        public static bool operator !=(Employee? a, Employee? b)
+        {
+            return !(a == b);
+        }
     }
 }

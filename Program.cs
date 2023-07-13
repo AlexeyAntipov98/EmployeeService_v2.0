@@ -7,6 +7,7 @@ internal class Program
         var builder = WebApplication.CreateBuilder(args);
         string connectionString = "Data Source=DataBase/Employees.sqlite";
         builder.Services.AddTransient<IEmployeeRepository, EmployeeRepository>(provider => new EmployeeRepository(connectionString));
+        //builder.Services.AddTransient<IEmployeeDocumentsRepository, EmployeeDocumentsRepository>(provider => new EmployeeDocumentsRepository(connectionString));
         builder.Services.AddMvc();
         var app = builder.Build();
         app.MapControllerRoute(
