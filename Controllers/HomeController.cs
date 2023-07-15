@@ -16,6 +16,11 @@ namespace EmployeeService_v2._0.Controllers
             this.userRepos = userRepos;
         }
         [HttpGet]
+        public IActionResult Index()
+        {
+            return LocalRedirect("~/Home/GetAllEmployees");
+        }
+        [HttpGet]
         public IActionResult GetAllEmployees()
         {
             return Json(userRepos.GetAllEmployees(), jsonOptions);
@@ -44,11 +49,6 @@ namespace EmployeeService_v2._0.Controllers
         {
             userRepos.UpdateEmployee(empl);
             return Json(empl, jsonOptions);
-        }
-        [HttpPost]
-        public IActionResult AddEmployeeDocument(EmployeeDocument emplDoc)
-        {
-            return Json("a");
         }
         [HttpPost]
         public IActionResult DeleteEmployeeById(int id)
