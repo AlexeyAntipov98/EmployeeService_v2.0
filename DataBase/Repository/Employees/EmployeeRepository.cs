@@ -19,16 +19,16 @@ namespace EmployeeService_v2._0.DataBase.Repository.Employees
             {
                 db.Open();
                 string sqlQuery;
-                sqlQuery = @"SELECT id FROM Employees WHERE Name = @Name AND Surname = @Surname AND OrganizationId = @OrganizationId";
+                sqlQuery = @"SELECT id FROM Employees WHERE Name = @Name AND Surname = @Surname AND OrganizationId = @OrganizationId AND @DepartamentId = @DepartamentId";
                 int? emplId = db.Query<int?>(sqlQuery, empl).FirstOrDefault();
                 if (emplId is null)
                 {
                     sqlQuery = @"INSERT INTO Employees 
-                                    (Name, Surname, Phone, OrganizationId)
+                                    (Name, Surname, Phone, OrganizationId, DepartamentId)
                                 VALUES
-                                    (@Name, @Surname, @Phone, @OrganizationId)";
+                                    (@Name, @Surname, @Phone, @OrganizationId, @DepartamentId)";
                     db.Execute(sqlQuery, empl);
-                    sqlQuery = @"SELECT id FROM Employees WHERE Name = @Name AND Surname = @Surname AND OrganizationId = @OrganizationId";
+                    sqlQuery = @"SELECT id FROM Employees WHERE Name = @Name AND Surname = @Surname AND OrganizationId = @OrganizationId AND DepartamentId = @DepartamentId";
                     emplId = db.Query<int?>(sqlQuery, empl).FirstOrDefault();
                     if (emplId is not null)
                     {
@@ -102,6 +102,9 @@ namespace EmployeeService_v2._0.DataBase.Repository.Employees
 
                     if (employee.OrganizationId != emplFromDB.OrganizationId)
                         updatebleFields.Add("OrganizationId=@OrganizationId");
+
+                    if (employee.DepartamentId != emplFromDB.DepartamentId)
+                        updatebleFields.Add("DepartamentId=@DepartamentId");
 
                     if (updatebleFields.Count != 0)
                     {

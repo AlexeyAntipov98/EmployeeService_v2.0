@@ -42,13 +42,25 @@ namespace EmployeeService_v2._0.DataBase.Repository.Organizations
             using (IDbConnection db = new SqliteConnection(connectionString))
             {
                 db.Open();
-                string sqlQuery = $"DELETE FROM Organizations WHERE id = @id";
+                string sqlQuery = "DELETE FROM Organizations WHERE id = @id";
+                db.Execute(sqlQuery, new { id });
+                sqlQuery = "UPDATE Employees SET OrganizationId = NULL, DepartamentId = NULL WHERE OrganizationId = @id";
+                db.Execute(sqlQuery, new { id });
+                sqlQuery = "DELETE FROM Departaments WHERE OrganizationId = @id";
                 db.Execute(sqlQuery, new { id });
             }
         }
         public void Update(Organization organization)
         {
-            throw new NotImplementedException();
+            if (organization.Id != 0)
+            {
+                using (IDbConnection db = new SqliteConnection(connectionString))
+                {
+                    db.Open();
+                    string sqlQuery = @"UPDATE Organizations SET Type = @Type, Name = @Name, INN = @INN WHERE Id = @Id";
+                    db.Execute(sqlQuery, organization);
+                }
+            }
         }
         public IEnumerable<Organization> GetAll()
         {
@@ -73,6 +85,15 @@ namespace EmployeeService_v2._0.DataBase.Repository.Organizations
                 db.Open();
                 string sqlQuery = $"UPDATE Employees SET OrganizationId = NULL WHERE orgId = @orgId AND Id = @emplId";
                 db.Execute(sqlQuery, new { orgId, emplId });
+            }
+        }
+
+        public IEnumerable<Departament> GetAllDepartmentsByOrgId(int orgId)
+        {
+            using (IDbConnection db = new SqliteConnection(connectionString))
+            {
+                db.Open();
+                return db.Query<Departament>("SELECT * FROM Departaments WHERE OrganizationId = @orgId", new { orgId }).ToList();
             }
         }
     }

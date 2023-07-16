@@ -7,6 +7,7 @@
         public string Surname { get; set; } = "";
         public string Phone { get; set; } = "";
         public int OrganizationId { get; set; }
+        public int DepartamentId { get; set; }
         public static bool operator ==(Employee? a, Employee? b)
         {
             if (a is not null && b is not null)
@@ -15,7 +16,8 @@
                     && a.Name == b.Name
                     && a.Surname == b.Surname
                     && a.Phone == b.Phone
-                    && a.OrganizationId == b.OrganizationId)
+                    && a.OrganizationId == b.OrganizationId
+                    && a.DepartamentId == b.DepartamentId)
                 {
                     return true;
                 }

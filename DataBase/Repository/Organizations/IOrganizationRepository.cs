@@ -10,6 +10,7 @@ namespace EmployeeService_v2._0.DataBase.Repository.Organizations
         public IEnumerable<Organization> GetAll();
         public IEnumerable<Employee> GetAllEmployeesByOrgId(int orgId);
         public void DeleteEmployeeFromOrg(int orgId, int emplId);
+        public IEnumerable<Departament> GetAllDepartmentsByOrgId(int orgId);
 
     }
 }

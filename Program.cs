@@ -1,3 +1,4 @@
+using EmployeeService_v2._0.DataBase.Repository.Departaments;
 using EmployeeService_v2._0.DataBase.Repository.Documents;
 using EmployeeService_v2._0.DataBase.Repository.Employees;
 using EmployeeService_v2._0.DataBase.Repository.Organizations;
@@ -12,6 +13,7 @@ internal class Program
         builder.Services.AddTransient<IEmployeeRepository, EmployeeRepository>(provider => new EmployeeRepository(connectionString));
         builder.Services.AddTransient<IDocumentRepository, DocumentRepository>(provider => new DocumentRepository(connectionString));
         builder.Services.AddTransient<IOrganizationRepository, OrganizationRepository>(provider => new OrganizationRepository(connectionString));
+        builder.Services.AddTransient<IDepartamentRepository, DepartamentRepository>(provider => new DepartamentRepository(connectionString));
         builder.Services.AddMvc();
         var app = builder.Build();
         app.MapControllerRoute(
@@ -23,8 +25,10 @@ internal class Program
             constraints: new { employeeId = new IntRouteConstraint() });
         app.MapControllerRoute(
             name: "Organizations",
-            pattern: "Organizations/{action=Index}/{id?}/{emplId}",
-            constraints: new { employeeId = new IntRouteConstraint() });
+            pattern: "Organizations/{action=Index}/{id}/{emplId?}");
+        app.MapControllerRoute(
+            name: "Departaments",
+            pattern: "Departaments/{action=Index}/{orgId}/{id}");
         app.Run();
     }
 }

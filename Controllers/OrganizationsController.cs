@@ -37,6 +37,12 @@ namespace EmployeeService_v2._0.Controllers
             orgRepos.DeleteById(id);
             return Content($"Organization with id {id} is deleted");
         }
+        [HttpPost]
+        public IActionResult DeleteEmployeeFromOrg(int id, int emplId)
+        {
+            orgRepos.DeleteEmployeeFromOrg(id, emplId);
+            return Content($"Organization with id {id} is deleted");
+        }
         [HttpGet]
         public IActionResult GetAll()
         {
@@ -46,6 +52,12 @@ namespace EmployeeService_v2._0.Controllers
         public IActionResult GetAllEmployeesByOrgId(int id)
         {
             return Json(orgRepos.GetAllEmployeesByOrgId(id), jsonOptions);
+        }
+        [HttpPost]
+        public IActionResult Update(Organization organization)
+        {
+            orgRepos.Update(organization);
+            return Json(organization, jsonOptions);
         }
     }
 }
