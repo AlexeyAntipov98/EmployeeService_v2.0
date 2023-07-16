@@ -3,7 +3,7 @@ using EmployeeService_v2._0.Models;
 using Microsoft.Data.Sqlite;
 using System.Data;
 
-namespace EmployeeService_v2._0.DataBase.Repository
+namespace EmployeeService_v2._0.DataBase.Repository.Documents
 {
     public class DocumentRepository : IDocumentRepository
     {

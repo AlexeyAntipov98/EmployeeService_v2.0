@@ -4,7 +4,7 @@ using Microsoft.Data.Sqlite;
 using System.Data;
 using System.Data.SqlTypes;
 
-namespace EmployeeService_v2._0.DataBase.Repository
+namespace EmployeeService_v2._0.DataBase.Repository.Employees
 {
     public class EmployeeRepository : IEmployeeRepository
     {
@@ -19,16 +19,16 @@ namespace EmployeeService_v2._0.DataBase.Repository
             {
                 db.Open();
                 string sqlQuery;
-                sqlQuery = @"SELECT id FROM Employees WHERE Name = @Name AND Surname = @Surname";
+                sqlQuery = @"SELECT id FROM Employees WHERE Name = @Name AND Surname = @Surname AND OrganizationId = @OrganizationId";
                 int? emplId = db.Query<int?>(sqlQuery, empl).FirstOrDefault();
                 if (emplId is null)
                 {
                     sqlQuery = @"INSERT INTO Employees 
-                                    (Name, Surname, Phone)
+                                    (Name, Surname, Phone, OrganizationId)
                                 VALUES
-                                    (@Name, @Surname, @Phone)";
+                                    (@Name, @Surname, @Phone, @OrganizationId)";
                     db.Execute(sqlQuery, empl);
-                    sqlQuery = @"SELECT id FROM Employees WHERE Name = @Name AND Surname = @Surname";
+                    sqlQuery = @"SELECT id FROM Employees WHERE Name = @Name AND Surname = @Surname AND OrganizationId = @OrganizationId";
                     emplId = db.Query<int?>(sqlQuery, empl).FirstOrDefault();
                     if (emplId is not null)
                     {
@@ -51,7 +51,7 @@ namespace EmployeeService_v2._0.DataBase.Repository
             using (IDbConnection db = new SqliteConnection(connectionString))
             {
                 db.Open();
-                return db.Query<Employee>("SELECT Id, Name, Surname, Phone FROM Employees WHERE id = @id", new { id }).FirstOrDefault();
+                return db.Query<Employee>("SELECT * FROM Employees WHERE id = @id", new { id }).FirstOrDefault();
             }
         }
 
@@ -75,7 +75,7 @@ namespace EmployeeService_v2._0.DataBase.Repository
             using (IDbConnection db = new SqliteConnection(connectionString))
             {
                 db.Open();
-                return db.Query<Employee>("SELECT Id, Name, Surname, Phone FROM Employees").ToList();
+                return db.Query<Employee>("SELECT * FROM Employees").ToList();
             }
         }
         /*
@@ -86,23 +86,26 @@ namespace EmployeeService_v2._0.DataBase.Repository
             var emplFromDB = GetEmployeeById(employee.Id);
             if (emplFromDB is not null && employee != emplFromDB) // заменить на отслеживание изменений в нормальной проекте
             {
-                /*Будет больше 50 полей, можно задуматься о рефлексии*/
-                List<string> updatebleFields = new List<string>();
-                if (!employee.Name.Equals(emplFromDB.Name))
-                    updatebleFields.Add("Name=@Name");
-
-                if (!employee.Surname.Equals(emplFromDB.Surname))
-                    updatebleFields.Add("Surname=@Surname");
-
-                if (!employee.Phone.Equals(emplFromDB.Phone))
-                    updatebleFields.Add("Phone=@Phone");
-
-                if (updatebleFields.Count != 0)
+                using (IDbConnection db = new SqliteConnection(connectionString))
                 {
-                    using (IDbConnection db = new SqliteConnection(connectionString))
+                    db.Open();
+                    /*Будет больше 50 полей, можно задуматься о рефлексии*/
+                    List<string> updatebleFields = new List<string>();
+                    if (!employee.Name.Equals(emplFromDB.Name))
+                        updatebleFields.Add("Name=@Name");
+
+                    if (!employee.Surname.Equals(emplFromDB.Surname))
+                        updatebleFields.Add("Surname=@Surname");
+
+                    if (!employee.Phone.Equals(emplFromDB.Phone))
+                        updatebleFields.Add("Phone=@Phone");
+
+                    if (employee.OrganizationId != emplFromDB.OrganizationId)
+                        updatebleFields.Add("OrganizationId=@OrganizationId");
+
+                    if (updatebleFields.Count != 0)
                     {
-                        db.Open();
-                        string sqlQuery = $"UPDATE Employees SET {string.Join(", ", updatebleFields)} WHERE id = @id";
+                        string sqlQuery = $"UPDATE Employees SET {string.Join(", ", updatebleFields)} WHERE Id = @Id";
                         db.Execute(sqlQuery, employee);
                     }
                 }

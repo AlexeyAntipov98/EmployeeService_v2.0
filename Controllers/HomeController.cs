@@ -1,16 +1,22 @@
-﻿using EmployeeService_v2._0.DataBase.Repository;
+﻿using EmployeeService_v2._0.DataBase.Repository.Employees;
 using EmployeeService_v2._0.Models;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Data.Sqlite;
+using System.Text.Encodings.Web;
 using System.Text.Json;
+using System.Text.Unicode;
 
 namespace EmployeeService_v2._0.Controllers
 {
     public class HomeController : Controller
     {
         private IEmployeeRepository userRepos;
-        private readonly JsonSerializerOptions jsonOptions = new JsonSerializerOptions { WriteIndented = true };
+        private readonly JsonSerializerOptions jsonOptions = new JsonSerializerOptions
+        {
+            Encoder = JavaScriptEncoder.Create(UnicodeRanges.BasicLatin, UnicodeRanges.Cyrillic),
+            WriteIndented = true
+        };
         public HomeController(IEmployeeRepository userRepos)
         {
             this.userRepos = userRepos;

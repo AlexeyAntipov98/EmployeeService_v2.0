@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>net7.0</TargetFramework>
@@ -6,6 +6,13 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <RootNamespace>EmployeeService_v2._0</RootNamespace>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Postman\**" />
+    <Content Remove="Postman\**" />
+    <EmbeddedResource Remove="Postman\**" />
+    <None Remove="Postman\**" />
+  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Dapper" Version="2.0.143" />

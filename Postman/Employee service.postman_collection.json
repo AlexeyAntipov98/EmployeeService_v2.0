@@ -1,0 +1,329 @@
+{
+	"info": {
+		"_postman_id": "2be10eee-2700-4b4d-bf2e-a6c1ef18f6cb",
+		"name": "Employee service",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "28519873"
+	},
+	"item": [
+		{
+			"name": "Employees",
+			"item": [
+				{
+					"name": "Create",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:7083/Home/CreateEmployee?Name=Jhon&Surname=Smith&Phone=a",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "7083",
+							"path": [
+								"Home",
+								"CreateEmployee"
+							],
+							"query": [
+								{
+									"key": "Name",
+									"value": "Jhon"
+								},
+								{
+									"key": "Surname",
+									"value": "Smith"
+								},
+								{
+									"key": "Phone",
+									"value": "a"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:7083/Home/UpdateEmployee?id=5&Name=Jeremy&Surname=Winston&Phone=88005553535",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "7083",
+							"path": [
+								"Home",
+								"UpdateEmployee"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "5"
+								},
+								{
+									"key": "Name",
+									"value": "Jeremy"
+								},
+								{
+									"key": "Surname",
+									"value": "Winston"
+								},
+								{
+									"key": "Phone",
+									"value": "88005553535"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:7083/Home/DeleteEmployeeById?id=6",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "7083",
+							"path": [
+								"Home",
+								"DeleteEmployeeById"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "6"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetAllEmployees",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:7083/Employees/GetAllEmployees",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "7083",
+							"path": [
+								"Employees",
+								"GetAllEmployees"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Documents",
+			"item": [
+				{
+					"name": "Create",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:7083/Documents/CreateDocument?Type=Паспорт&Serial=5418&Number=883130&EmployeeID=2",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "7083",
+							"path": [
+								"Documents",
+								"CreateDocument"
+							],
+							"query": [
+								{
+									"key": "Type",
+									"value": "Паспорт"
+								},
+								{
+									"key": "Serial",
+									"value": "5418"
+								},
+								{
+									"key": "Number",
+									"value": "883130"
+								},
+								{
+									"key": "EmployeeID",
+									"value": "2"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:7083/Documents/DeleteDocument?DocId=1",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "7083",
+							"path": [
+								"Documents",
+								"DeleteDocument"
+							],
+							"query": [
+								{
+									"key": "DocId",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetAllByEmployeeId",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:7083/Documents/GetEmployeeDocuments?employeeId=02",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "7083",
+							"path": [
+								"Documents",
+								"GetEmployeeDocuments"
+							],
+							"query": [
+								{
+									"key": "employeeId",
+									"value": "02"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Organizations",
+			"item": [
+				{
+					"name": "Create",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:7083/Organizations/Create?Type=ИП&Name=Рога и копыта&INN=84690402934",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "7083",
+							"path": [
+								"Organizations",
+								"Create"
+							],
+							"query": [
+								{
+									"key": "Type",
+									"value": "ИП"
+								},
+								{
+									"key": "Name",
+									"value": "Рога и копыта"
+								},
+								{
+									"key": "INN",
+									"value": "84690402934"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetAll",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:7083/Organizations/GetAll",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "7083",
+							"path": [
+								"Organizations",
+								"GetAll"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "GetAllEmployeesByOrgId",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:7083/Organizations/GetAllEmployeesByOrgId?id=2",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "7083",
+							"path": [
+								"Organizations",
+								"GetAllEmployeesByOrgId"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "2"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DeleteEmployeeFromOrg",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
